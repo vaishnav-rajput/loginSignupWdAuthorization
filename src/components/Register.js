@@ -5,7 +5,7 @@ import React from 'react'
 import "../assets/index.css"
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=. *[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
     const userRef = useRef();
@@ -87,6 +87,37 @@ const Register = () => {
                 Letters, numbers, underscores, hyphens allowed.
 
             </p>
+
+            <label htmlFor="password">
+                Password:
+                <span className={validPwd ? "valid" : "hide"}>
+                    <FontAwesomeIcon icon={faCheck}/>
+                </span>
+                <span className={validPwd || !pwd ? "hide" : "invalid"}>
+                    <FontAwesomeIcon icon={faTimes}/>
+                </span>
+            </label>
+
+            <input 
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                required
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+                className="text-black"
+            />
+            <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"} 
+            >
+                <FontAwesomeIcon icon={faInfoCircle}/>
+                8 to 24 characters. <br></br>
+                Must include uppercase and lowecase letters, a number and a special character. <br/>
+
+            </p>
+
+
         </form>
     </section>
   )
