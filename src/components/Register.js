@@ -118,7 +118,49 @@ const Register = () => {
             </p>
 
 
+            <label htmlFor="confirm_pwd">
+                Confirm Password:
+                <span className={validMatch && matchPwd ? "valid" : "hide"}>
+                    <FontAwesomeIcon icon={faCheck}/>
+                </span>
+                <span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                    <FontAwesomeIcon icon={faTimes}/>
+                </span>
+            </label>
+
+            <input 
+                type="password"
+                id="confirm_pwd"
+                onChange={(e) => setMatchPwd(e.target.value)}
+                required
+                aria-invalid={validMatch ? "false" : "true"}
+                aria-describedby="confirmnote"
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+                className="text-black"
+            />
+            <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"} 
+            >
+                <FontAwesomeIcon icon={faInfoCircle}/>
+                Must match the first password input field. 
+
+            </p>
+
+            <button disabled={!validName || !validPwd || !validMatch ? true : false}
+            >
+            Sign Up
+            </button>
+
+
+
         </form>
+        <p>
+            Already registered? <br/>
+            <span className="line">
+                {/* router link can be put here */}
+                <a href="#">Sign In</a>
+            </span>
+        </p>
     </section>
   )
 }
